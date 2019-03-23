@@ -110,7 +110,7 @@ import UIKit
         
         // Initialize UI Elements
         
-        pageControl?.addTarget(self, action: #selector(BWWalkthroughViewController.pageControlDidTouch), for: UIControlEvents.touchUpInside)
+        pageControl?.addTarget(self, action: #selector(BWWalkthroughViewController.pageControlDidTouch), for: UIControl.Event.touchUpInside)
         
         // Scrollview
         
@@ -188,8 +188,8 @@ import UIKit
         
         // Make children aware of the parent
         
-        addChildViewController(viewController)
-        viewController.didMove(toParentViewController: self)
+        addChild(viewController)
+        viewController.didMove(toParent: self)
         
         // Setup the viewController view
 
