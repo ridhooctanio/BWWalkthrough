@@ -61,6 +61,7 @@ import UIKit
     @IBOutlet open var nextButton:UIButton?
     @IBOutlet open var prevButton:UIButton?
     @IBOutlet open var closeButton:UIButton?
+    @IBOutlet open var closeButton2:UIButton?
     
     open var currentPage: Int {    // The index of the current page (readonly)
         get{
@@ -82,9 +83,10 @@ import UIKit
         }
     }
     
+    
     // MARK: - Private properties -
     
-    public let scrollview = UIScrollView()
+    open let scrollview = UIScrollView()
     private var controllers = [UIViewController]()
     private var lastViewConstraint: [NSLayoutConstraint]?
     
@@ -108,7 +110,7 @@ import UIKit
         
         // Initialize UI Elements
         
-        pageControl?.addTarget(self, action: #selector(BWWalkthroughViewController.pageControlDidTouch), for: UIControl.Event.touchUpInside)
+        pageControl?.addTarget(self, action: #selector(BWWalkthroughViewController.pageControlDidTouch), for: UIControlEvents.touchUpInside)
         
         // Scrollview
         
@@ -158,6 +160,10 @@ import UIKit
         delegate?.walkthroughCloseButtonPressed?()
     }
     
+    @IBAction open func close2(_ sender: AnyObject) {
+        delegate?.walkthroughCloseButtonPressed?()
+    }
+    
     @objc func pageControlDidTouch(){
         if let pc = pageControl{
             gotoPage(pc.currentPage)
@@ -182,8 +188,8 @@ import UIKit
         
         // Make children aware of the parent
         
-        addChild(viewController)
-        viewController.didMove(toParent: self)
+        addChildViewController(viewController)
+        viewController.didMove(toParentViewController: self)
         
         // Setup the viewController view
 
@@ -240,6 +246,15 @@ import UIKit
         }else{
             prevButton?.isHidden = false
         }
+        
+        if currentPage == 4{
+            nextButton?.isHidden = true
+            closeButton2?.isHidden = false
+        }else{
+            nextButton?.isHidden = false
+            closeButton2?.isHidden = true
+        }
+        
     }
     
     // MARK: - Scrollview Delegate -
